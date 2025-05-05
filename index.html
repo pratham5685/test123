@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PytronicsLabs | Premium 1-on-1 Coding Classes for Kids</title>
+  <style>
+    :root {
+      --primary: #0071e3;
+      --primary-dark: #0058b9;
+      --accent: #f2b705;
+      --accent-hover: #e0a800;
+      --text-primary: #1d1d1f;
+      --text-secondary: #515154;
+      --background: #fbfbfd;
+      --card-bg: #ffffff;
+      --divider: #d2d2d7;
+      --shadow: rgba(0, 0, 0, 0.06);
+      --shadow-hover: rgba(0, 0, 0, 0.1);
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
+      background: var(--background);
+      color: var(--text-primary);
+      line-height: 1.5;
+      font-weight: 400;
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, sans-serif;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    p {
+      color: var(--text-secondary);
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Mobile Nav Toggle */
+    .nav-toggle {
+      display: none;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 10px;
+      z-index: 1100;
+    }
+
+    .nav-toggle span {
+      display: block;
+      width: 25px;
+      height: 3px;
+      margin: 5px 0;
+      background: var(--text-primary);
+      transition: all 0.3s ease;
+    }
+
+    nav {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 16px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      border-bottom: 1px solid rgba(210, 210, 215, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    nav .logo {
+      font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: -0.05em;
+      z-index: 1100;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 32px;
+      align-items: center;
+      transition: all 0.3s ease;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: var(--text-primary);
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: color 0.2s ease;
+    }
+
+    nav ul li a:hover {
+      color: var(--primary);
+    }
+
+    nav ul li a.nav-cta {
+      background: var(--primary);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 100px;
+      transition: all 0.3s ease;
+    }
+
+    nav ul li a.nav-cta:hover {
+      background: var(--primary-dark);
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    .hero {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      padding: 140px 5% 100px;
+      background: linear-gradient(170deg, #f5f5f7 0%, var(--background) 100%);
+    }
+
+    .hero-text {
+      flex: 1;
+      min-width: 300px;
+      padding-right: 40px;
+      animation: fadeInUp 1s ease;
+    }
+
+    .hero-text h1 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      color: var(--text-primary);
+      margin-bottom: 20px;
+      line-height: 1.1;
+    }
+
+    .hero-text p {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      margin-bottom: 32px;
+      max-width: 500px;
+      color: var(--text-secondary);
+      font-weight: 400;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .dashboard-container {
+      flex: 0 0 50%;
+      max-width: 600px;
+      min-width: 280px;
+      background: var(--card-bg);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 8px 30px var(--shadow);
+      animation: fadeInUp 1.2s ease;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      margin: 0 auto;
+    }
+
+    .dashboard-container:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 35px var(--shadow-hover);
+    }
+
+    .dashboard-container:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--primary);
+    }
+
+
+    .dashboard-container img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      display: block;
+      object-fit: contain;
+      max-height: 100%;
+    }
+
+    .dashboard-caption {
+      margin-top: 16px;
+      text-align: center;
+      color: var(--text-primary);
+      font-weight: 500;
+      font-size: clamp(0.9rem, 1.5vw, 1rem);
+    }
+
+    section {
+      padding: 80px 5%;
+      max-width: 1400px;
+      margin: auto;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      color: var(--text-primary);
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--text-secondary);
+      margin-bottom: 60px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      margin-top: 60px;
+    }
+
+    .feature {
+      background: var(--card-bg);
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px var(--shadow);
+      transition: all 0.3s ease;
+      border: 1px solid var(--divider);
+      height: 100%;
+    }
+
+    .feature:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 35px var(--shadow-hover);
+    }
+
+    .feature-icon {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      color: var(--primary);
+    }
+
+    .feature h3 {
+      color: var(--text-primary);
+      margin-bottom: 16px;
+      font-size: clamp(1.2rem, 2vw, 1.4rem);
+    }
+
+    .feature p {
+      color: var(--text-secondary);
+      line-height: 1.6;
+      font-size: clamp(0.9rem, 1.5vw, 1rem);
+    }
+
+    .courses {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      margin-top: 60px;
+    }
+
+    .course {
+      background: var(--card-bg);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px var(--shadow);
+      transition: all 0.3s ease;
+      position: relative;
+      height: 100%;
+    }
+
+    .course:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 35px var(--shadow-hover);
+    }
+
+    .course-header {
+      background: var(--primary);
+      color: white;
+      padding: 16px 24px;
+    }
+
+    .course-header h4 {
+      font-size: clamp(1.1rem, 2vw, 1.3rem);
+      margin: 0;
+    }
+
+    .course-content {
+      padding: 24px;
+    }
+
+    .course-content p {
+      margin-bottom: 0;
+      line-height: 1.6;
+      font-size: clamp(0.9rem, 1.5vw, 1rem);
+    }
+
+    .course-tag {
+      display: inline-block;
+      background: rgba(0, 113, 227, 0.1);
+      color: var(--primary);
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .testimonials {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      margin-top: 60px;
+    }
+
+    .testimonial {
+      background: var(--card-bg);
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px var(--shadow);
+      transition: all 0.3s ease;
+      height: 100%;
+    }
+
+    .testimonial:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 35px var(--shadow-hover);
+    }
+
+    .testimonial-rating {
+      color: var(--accent);
+      font-size: 1.2rem;
+      margin-bottom: 12px;
+    }
+
+    .testimonial p {
+      font-style: italic;
+      margin-bottom: 20px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      font-size: clamp(0.9rem, 1.5vw, 1rem);
+    }
+
+    .testimonial-author {
+      font-weight: 600;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+    }
+
+    .testimonial-author img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-right: 12px;
+      object-fit: cover;
+    }
+
+    .faq {
+      background: var(--card-bg);
+      padding: 24px 30px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px var(--shadow);
+      transition: all 0.3s ease;
+      border: 1px solid var(--divider);
+      height: 100%;
+    }
+
+    .faq:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px var(--shadow-hover);
+    }
+
+    .faq h4 {
+      color: var(--text-primary);
+      margin-bottom: 12px;
+      font-size: clamp(1.1rem, 2vw, 1.2rem);
+    }
+
+    .faq p {
+      color: var(--text-secondary);
+      line-height: 1.6;
+      font-size: clamp(0.9rem, 1.5vw, 1rem);
+    }
+
+    .cta-button {
+      display: inline-block;
+      background: var(--primary);
+      padding: 14px 32px;
+      border-radius: 100px;
+      color: white;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-size: clamp(0.9rem, 1.5vw, 1rem);
+    }
+
+    .cta-button:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .centered-cta {
+      text-align: center;
+      margin-top: 60px;
+    }
+
+    footer {
+      background: #1d1d1f;
+      color: #f5f5f7;
+      padding: 60px 5% 40px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .footer-col h4 {
+      color: white;
+      margin-bottom: 20px;
+      font-size: 1.1rem;
+    }
+
+    .footer-col ul {
+      list-style: none;
+    }
+
+    .footer-col ul li {
+      margin-bottom: 12px;
+    }
+
+    .footer-col ul li a {
+      color: #a1a1a6;
+      text-decoration: none;
+      transition: color 0.2s ease;
+      font-size: 0.9rem;
+    }
+
+    .footer-col ul li a:hover {
+      color: white;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid #424245;
+      padding-top: 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .footer-bottom p {
+      color: #a1a1a6;
+      font-size: 0.85rem;
+    }
+
+    .social-links a {
+      color: #a1a1a6;
+      margin-left: 16px;
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: color 0.2s ease;
+    }
+
+    .social-links a:hover {
+      color: white;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 1200px) {
+      .hero {
+        padding: 130px 5% 80px;
+      }
+      
+      .dashboard-container {
+        flex: 0 0 45%;
+      }
+    }
+
+    @media (max-width: 991px) {
+      .hero {
+        flex-direction: column;
+        padding: 120px 5% 60px;
+        gap: 40px;
+      }
+      
+      .hero-text {
+        margin-bottom: 20px;
+        padding-right: 0;
+      }
+      
+      .dashboard-container {
+        flex: 0 0 100%;
+        max-width: 100%;
+      }
+      
+      section {
+        padding: 60px 5%;
+      }
+      
+      .nav-toggle {
+        display: block;
+      }
+      
+      nav ul {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 80%;
+        max-width: 350px;
+        height: 100vh;
+        background: var(--card-bg);
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 100px 40px 40px;
+        box-shadow: -5px 0 30px rgba(0, 0, 0, 0.1);
+        transition: right 0.4s ease;
+        z-index: 1000;
+      }
+      
+      nav ul.active {
+        right: 0;
+      }
+      
+      nav ul li {
+        width: 100%;
+        margin-bottom: 20px;
+      }
+      
+      nav ul li a.nav-cta {
+        display: block;
+        text-align: center;
+        margin-top: 20px;
+      }
+      
+      .nav-toggle.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+      }
+      
+      .nav-toggle.active span:nth-child(2) {
+        opacity: 0;
+      }
+      
+      .nav-toggle.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -8px);
+      }
+      
+      body.menu-open {
+        overflow: hidden;
+      }
+      
+      .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        z-index: 999;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+      }
+      
+      .overlay.active {
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero-buttons {
+        flex-direction: column;
+        width: 100%;
+      }
+      
+      .hero-buttons .cta-button {
+        width: 100%;
+        text-align: center;
+      }
+      
+      .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .social-links {
+        margin-top: 20px;
+      }
+      
+      .social-links a {
+        margin: 0 8px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero {
+        padding: 100px 5% 50px;
+      }
+      
+      .hero-text h1 {
+        font-size: 2rem;
+      }
+      
+      .dashboard-container {
+        padding: 15px;
+      }
+      
+      section {
+        padding: 50px 5%;
+      }
+      
+      .feature, .faq, .testimonial, .course {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav>
+    <div class="nav-container">
+      <div class="logo">PytronicsLabs</div>
+      <button class="nav-toggle" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul>
+        <li><a href="#features">Why Us</a></li>
+        <li><a href="#courses">Curriculum</a></li>
+        <li><a href="#testimonials">Success Stories</a></li>
+        <li><a href="#faqs">FAQ</a></li>
+        <li><a href="#trial" class="nav-cta">Book Free Trial</a></li>
+      </ul>
+    </div>
+  </nav>
+  
+  <div class="overlay"></div>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-text">
+      <h1>Unleash Your Child's Inner Creator and Tech Genius</h1>
+      <p>Expert 1-on-1 coaching helps kids in grades 4-9 build interactive projects, real-life circuits, all while developing critical thinking and problem-solving skills that will shape the innovators of tomorrow.</p>
+      <div class="hero-buttons">
+        <a href="#trial" class="cta-button">Download Brochure</a>
+        <a href="#trial" class="cta-button">Book Free Trial</a>
+      </div>
+    </div>
+
+    <div class="dashboard-container" id="trial">
+      <!-- Replacing the form with the dashboard image -->
+      <img src="abc.png" alt="PytronicsLabs Dashboard Interface" />
+      <div class="dashboard-caption">Our intuitive learning dashboard makes tracking progress simple and rewarding</div>
+    </div>
+  </section>
+
+  <!-- USPs -->
+  <section id="features">
+    <h2 class="section-title">Why PytronicsLabs Makes the Difference</h2>
+    <p class="section-subtitle">Our approach combines personalized attention with project-based learning to create a unique educational experience.</p>
+    
+    <div class="features">
+      <div class="feature">
+        <div class="feature-icon">👨‍🏫</div>
+        <h3>Personalized 1-on-1 Sessions</h3>
+        <p>No distractions, no competition for attention. Every minute of your child's session is focused on their specific learning style, pace, and interests.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🧠</div>
+        <h3>Beyond Just Coding</h3>
+        <p>We develop computational thinking, problem-solving abilities, and creative confidence that benefit every area of your child's education and future.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🎮</div>
+        <h3>Project-Based Learning</h3>
+        <p>Children learn by creating real games, animations, websites, and applications they're proud to share with family and friends.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">📈</div>
+        <h3>Transparent Progress</h3>
+        <p>Detailed weekly updates keep parents informed about concepts mastered, projects completed, and skills developed.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Courses -->
+  <section id="courses">
+    <h2 class="section-title">Age-Appropriate Curriculum</h2>
+    <p class="section-subtitle">Our specialized programs ensure children learn concepts at the perfect pace for their cognitive development.</p>
+    
+    <div class="courses">
+      <div class="course">
+        <div class="course-header">
+          <h4>Grades 5+: Electronics Basics with Tinkercad Simulation</h4>
+        </div>
+        <div class="course-content">
+          <span class="course-tag">Ages 10+</span>
+          <p>Introduction to electronics and circuit design. Focus on creating and simulating real circuits, integrating simple code to control physical hardware.</p>
+        </div>
+      </div>
+      <div class="course">
+        <div class="course-header">
+          <h4>Grades 4–6: Python Block Coding</h4>
+        </div>
+        <div class="course-content">
+          <span class="course-tag">Ages 9-12</span>
+          <p>The perfect transition from visual to text coding, EduBlocks bridges block-based programming and Python syntax. Students build games, interactive stories, and logic puzzles using real programming concepts.</p>
+        </div>
+      </div>
+      <div class="course">
+        <div class="course-header">
+          <h4>Grades 6–9: Python Syntax Coding</h4>
+        </div>
+        <div class="course-content">
+          <span class="course-tag">Ages 11-15</span>
+          <p>Students advance to full Python programming, creating calculators, mini-games, and automation tools. This course develops algorithmic thinking, debugging skills, and software design fundamentals.</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="centered-cta">
+      <a href="#trial" class="cta-button">Book a Free Trial Class</a>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section id="testimonials">
+    <h2 class="section-title">Parent Success Stories</h2>
+    <p class="section-subtitle">See how PytronicsLabs has transformed children's relationship with technology and learning.</p>
+    
+    <div class="testimonials">
+      <div class="testimonial">
+        <div class="testimonial-rating">★★★★★</div>
+        <p>"My son was thrilled with the 3D Design course. He created his first 3D model, and it was amazing to see how much he learned so quickly. Now, he's excited to dive into Python coding!"</p>
+        <div class="testimonial-author">
+          <span>Rina P.</span>
+        </div>
+      </div>
+      <div class="testimonial">
+        <div class="testimonial-rating">★★★★★</div>
+        <p>"The block coding lessons were a game-changer for my daughter. She loved how interactive and fun the classes were. After completing the course, she confidently started working on her own projects!"</p>
+        <div class="testimonial-author">
+          <span>Aarav S.</span>
+        </div>
+      </div>
+      <div class="testimonial">
+        <div class="testimonial-rating">★★★★★</div>
+        <p>"The Python Syntax course has been an excellent challenge for my son. It helped him connect the dots between logic, problem-solving, and coding. I'm so proud of the projects he has built!"</p>
+        <div class="testimonial-author">
+          <span>Priya M.</span>
+        </div>
+      </div>
+      <div class="testimonial">
+        <div class="testimonial-rating">★★★★★</div>
+        <p>"I wasn't sure if my daughter would enjoy coding, but after taking the 3D Design course, she's now building her own models and can't wait to learn more about Python syntax!"</p>
+        <div class="testimonial-author">
+          <span>Meera K.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQs -->
+  <section id="faqs">
+    <h2 class="section-title">Frequently Asked Questions</h2>
+    <p class="section-subtitle">Everything you need to know about our programs and approach.</p>
+    
+    <div class="features">
+      <div class="faq">
+        <h4>What age groups do you teach?</h4>
+        <p>Our courses are tailored for students in Grades 4-9 (approximately ages 6-14), with curriculum carefully designed for each developmental stage.</p>
+      </div>
+      <div class="faq">
+        <h4>Is prior coding experience required?</h4>
+        <p>Not at all! Our programs are designed to engage complete beginners, with personalized instruction adapting to each child's starting point.</p>
+      </div>
+      <div class="faq">
+        <h4>How long are the sessions?</h4>
+        <p>Each 1-on-1 session lasts 60 minutes, providing focused instruction without overwhelming younger attention spans.</p>
+      </div>
+      <div class="faq">
+        <h4>What if my child doesn't enjoy the class?</h4>
+        <p>We offer a no-obligation free trial session. If your child doesn't enjoy it, there's no commitment to continue.</p>
+      </div>
+    </div>
+    
+    <div class="centered-cta">
+      <a href="#trial" class="cta-button">Schedule Your Free Trial Today</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-grid">
+      <!-- <div class="footer-col">
+        <h4>PytronicsLabs</h4>
+        <ul>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#team">Our Instructors</a></li>
+          <li><a href="#careers">Careers</a></li>
+          <li><a href="#press">Press</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Programs</h4>
+        <ul>
+          <li><a href="#design">3D Design Explorers</a></li>
+          <li><a href="#block">Python Block Coding</a></li>
+          <li><a href="#syntax">Python Syntax Coding</a></li>
+          <li><a href="#advanced">Advanced Projects</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="#blog">Blog</a></li>
+          <li><a href="#tutorials">Free Tutorials</a></li>
+          <li><a href="#webinars">Webinars</a></li>
+          <li><a href="#ebook">Parent's Guide to Coding</a></li>
+        </ul>
+      </div> -->
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:pytronicslabs@gmail.com">pytronicslabs@gmail.com</a></li>
+          <li><a href="tel:+917045192433">+91 7045192433</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>&copy; 2025 PytronicsLabs. All rights reserved.</p>
+      <div>
